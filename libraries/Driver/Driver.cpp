@@ -1,3 +1,6 @@
+#ifndef driverImp
+#define driverImp
+
 #include "Arduino.h"
 #include "Driver.h"
 
@@ -33,7 +36,7 @@ Driver::Driver(int heightt, int widtht): height (heightt), width (widtht), image
 
 	// supply clock pulse to camera: SCCB and Sys
     Timer1.initialize(period);
-    Timer1.pwm(sccbClk,duty);
+    //Timer1.pwm(sccbClk,duty);
     Timer1.pwm(sysClk,duty);
 	
 }
@@ -43,24 +46,36 @@ Frame Driver::getFrame(){
 }
 
 void Driver::read(){
-	imageComplete = false; // if end of the frame, this will be updated before function return
+	unsigned int data; // used to hold data from pins
+	imageComplete = 0; // if end of the frame, this will be updated before function return
 	v = digitalRead(vSync);
+	//Serial.print("V: ");
+	//Serial.println(v);
 	if (v == LOW && pastv == HIGH){ // beginning of a new frame (falling edge of vertical sync)
+		Serial.println("In new frame");
+		Serial.flush();
 		while (v==LOW){ // continue reading lines until the frame is fully constructed
+			//Serial.println("Continuing to read frame");
+			//Serial.flush();
 			h = digitalRead(hSync);
 			if (h == HIGH && pasth == LOW){ // beginning of a new row
+				//Serial.println("Beginning new row");
+				//Serial.flush();
 				while( h== HIGH ){ // continue reading every pixel until you have constructed the full row
 					p = digitalRead(pClk);
 					if (p == HIGH && pastp == LOW){ // read a byte of data and add it to the row
+						//Serial.println("Reading word");
+						//Serial.flush();
 						// read in the data from the pins using binary math
-						unsigned int data = 0;
 						data = readPins(d0,d1,d2,d3,d4,d5,d6,d7);
-						image->readWord(data);
+						(*image).readWord(data);
 					}
 				pastp = p;
+				h = digitalRead(hSync);
 				}
 			}
 			pasth = h;
+			v = digitalRead(vSync);
 		}
 		imageComplete = true;
 	}
@@ -94,3 +109,5 @@ unsigned int Driver::readPins(int p0, int p1, int p2, int p3, int p4, int p5, in
 		data = data + 128;
     return data;
 }
+
+#endif

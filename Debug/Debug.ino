@@ -27,25 +27,26 @@ Box range;
 // the current location of the tracked point
 Coordinates target;
 
+// timer object to supply clock pulse to camera
+//TimerOne Timer1;
 
 void setup(){
   Serial.begin(9600);
   while(!Serial);
-  Serial.println("Calibrating box dimensions, move the target around");
+  Serial.println("Calibrating systems, move the target around.");
   Serial.flush();
+  while(!Serial);
   range.calibrate(driver, targetR, targetG, targetB, rTolerance, gTolerance, bTolerance);
-						 
+
 }
 
 void loop(){
-  
-  while (!Serial.available());
   Serial.println("\nBegin? [Y/N]");
   Serial.flush();
   while(!Serial.available()) ; // busy wait for user input
   char signal = Serial.read(); // read signal from the stream
   if (signal == 'y' || signal == 'Y'){
-    Serial.println("Running");
+    Serial.println("Running.");
     while(1){ // active loop
     
     

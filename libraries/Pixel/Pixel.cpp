@@ -1,3 +1,6 @@
+#ifndef pixelImp
+#define pixelImp
+
 #include "Arduino.h"
 #include "Pixel.h"
 	
@@ -39,3 +42,5 @@ int Pixel::getG(){
 int Pixel::getB(){
 	return b;
 }
+
+#endif

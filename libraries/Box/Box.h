@@ -1,5 +1,5 @@
 #ifndef boxHeader
-#define bodHeader
+#define boxHeader
 
 #include "Coordinates.h"
 #include "Driver.h"
@@ -44,6 +44,8 @@ class Box{
 	// used to determine the magnitude of mouse movement
 	void calibrate(Driver dr,int targetR, int targetG, int targetB,
 						  int rTolerance, int gTolerance, int bTolerance);
+						  
+	void moveMouse(Coordinates point);
 };
 
 #endif

@@ -1,3 +1,6 @@
+#ifndef coordinatesImp
+#define coordinatesImp
+
 #include "Arduino.h"
 #include "Coordinates.h"
 
@@ -13,3 +16,5 @@ void Coordinates::setX(int xt){
 void Coordinates::setY(int yt){
 	y = yt;
 }
+
+#endif

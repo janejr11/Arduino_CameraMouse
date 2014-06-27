@@ -1,3 +1,6 @@
+#ifndef lineImp
+#define lineImp
+
 #include "Arduino.h"
 #include "Line.h"
 
@@ -44,3 +47,5 @@ void Line::convert(){
 		pix[i].convert();
 	}
 }
+
+#endif
