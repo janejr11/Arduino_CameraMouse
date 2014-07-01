@@ -25,7 +25,7 @@ class Frame{
 	// cb and cr of both pixel A and B
 	int cb;
 	int cr;
-
+	
 	public:
 	// constructors
 	Frame(int heightt, int widtht);

@@ -36,8 +36,10 @@ Driver::Driver(int heightt, int widtht): height (heightt), width (widtht), image
 
 	// supply clock pulse to camera: SCCB and Sys
     Timer1.initialize(period);
+	
     //Timer1.pwm(sccbClk,duty);
-    Timer1.pwm(sysClk,duty);
+    Timer1.pwm(sysClk,duty,1);
+	Timer1.start();
 	
 }
 
@@ -53,7 +55,6 @@ void Driver::read(){
 	//Serial.println(v);
 	if (v == LOW && pastv == HIGH){ // beginning of a new frame (falling edge of vertical sync)
 		Serial.println("In new frame");
-		Serial.flush();
 		while (v==LOW){ // continue reading lines until the frame is fully constructed
 			//Serial.println("Continuing to read frame");
 			//Serial.flush();
@@ -77,7 +78,7 @@ void Driver::read(){
 			pasth = h;
 			v = digitalRead(vSync);
 		}
-		imageComplete = true;
+		imageComplete = 1;
 	}
 	pastv = v;
 } // end of read

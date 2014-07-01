@@ -3,22 +3,17 @@
 
 #include "Arduino.h"
 #include "Pixel.h"
-	
+
+// constructors
 Pixel::Pixel(int yt,int cbt,int crt){
 	y = yt;
 	cb = cbt;
 	cr = crt;
 }
-
 Pixel::Pixel(){
 }
 
-void Pixel::convert(){
-	r = y+1.402*(cr-128);
-    g = y-0.34414*(cb-128)-0.71414*(cr-128);
-    b = y+1.772*(cb-128);
-}
-
+// mutators
 void Pixel::sety(int yt){
 	y = yt;
 }
@@ -33,6 +28,8 @@ void Pixel::setData(int rt, int gt, int bt){
 	g = gt;
 	b = bt;
 }
+
+// accessors
 int Pixel::getR(){
 	return r;
 }
@@ -41,6 +38,13 @@ int Pixel::getG(){
 }
 int Pixel::getB(){
 	return b;
+}
+
+// methods
+void Pixel::convert(){
+	r = y+1.402*(cr-128);
+    g = y-0.34414*(cb-128)-0.71414*(cr-128);
+    b = y+1.772*(cb-128);
 }
 
 #endif

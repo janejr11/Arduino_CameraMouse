@@ -3,7 +3,7 @@
 
 #include "Box.h"
 
-// constructor
+// constructors
 Box::Box(int xCentert, int yCentert, int xMaxt, int xMint, int yMaxt,int yMint){
 	xCenter = xCentert;
 	yCenter = yCentert;
@@ -12,7 +12,6 @@ Box::Box(int xCentert, int yCentert, int xMaxt, int xMint, int yMaxt,int yMint){
 	yMax = yMaxt;
 	yMin = yMint;
 }
-
 Box::Box(){
 }
 
@@ -20,55 +19,44 @@ Box::Box(){
 void Box::setXCenter(int xCentert){
 	xCenter = xCentert;
 }
-
 void Box::setYCenter(int yCentert){
 	yCenter = yCentert;
 }
-
 void Box::setXMax (int xMaxt){
 	xMax = xMaxt;
 }
-
 void Box::setYMax (int yMaxt){
 	yMax = yMaxt;
 }
-
 void Box::setXMin (int xMint){
 	xMin = xMint;
 }
-
 void Box::setYMin (int yMint){
 	yMin = yMint;
 }
-
 
 //accessors
 int Box::getXCenter(){
 	return xCenter;
 }
-
 int Box::getYCenter(){
 	return yCenter;
 }
-
 int Box::getXMax(){
 	return xMax;
 }
-
 int Box::getXMin(){
 	return xMin;
 }
-
 int Box::getYMax(){
 	return yMax;
 }
-
 int Box::getYMin(){
 	return yMin;
 }
 
 void Box::calibrate(Driver dr,int targetR, int targetG, int targetB,
-						  int rTolerance, int gTolerance, int bTolerance){
+					int rTolerance, int gTolerance, int bTolerance){
 	Serial.println("In calibrate");
 	Serial.flush();
 	int currentXMax = 0;
@@ -79,7 +67,7 @@ void Box::calibrate(Driver dr,int targetR, int targetG, int targetB,
 	int i = 0;
 	int t = 0; // debugging
 	// reads 100 frames to find the min and max y/y values for the calibrated box
-	while(i<30){
+	while(i<20){
 		/*t++;
 		if (t%100 == 0){
 			Serial.print("Reading: ");
@@ -91,7 +79,15 @@ void Box::calibrate(Driver dr,int targetR, int targetG, int targetB,
 			Serial.println("Frame complete. Extracting image.");
 			Serial.flush();
 			i++;
+			
+			// test if the rows of the frame are full
 			current = dr.getFrame().locate(targetR, targetG, targetB, rTolerance, gTolerance, bTolerance);
+			Serial.print("X: ");
+			Serial.print(current.getX());
+			Serial.print("   ");
+			Serial.print("Y: ");
+			Serial.println(current.getY());
+			Serial.flush();
 			if (current.getX() > currentXMax)
 				currentXMax = current.getX();
 				
@@ -123,41 +119,41 @@ void Box::calibrate(Driver dr,int targetR, int targetG, int targetB,
 
 // move the mouse according to the movement of the point within the box
 void Box::moveMouse(Coordinates point){
-  float sectorWidth;
-  float sectorHeight;
-  sectorWidth  = (float)(xMax - xCenter) / 4.0;
-  sectorHeight = (float)(yMax - yCenter) / 4.0;
-  Mouse.begin();
-  
-  // X motion
-  if (point.getX() > (float)xMax - sectorWidth)             // fast right
-    Mouse.move(3,0,0);
-  else if (point.getX() < (float)xMin + sectorWidth)        // fast left
-    Mouse.move(-3,0,0);
-  else if (point.getX() > (float)xMax - 2.0 * sectorWidth)  // medium right
-    Mouse.move(2,0,0);
-  else if (point.getX() < (float)xMin + 2.0 * sectorWidth)  // medium left
-    Mouse.move(-2,0,0);
-  else if (point.getX() > (float)xMax - 3.0 * sectorWidth)  // slow right
-    Mouse.move(1,0,0);
-  else if (point.getX() < (float)xMin + 3.0 * sectorWidth)  // slow left
-    Mouse.move(-1,0,0);
+	float sectorWidth;
+	float sectorHeight;
+	
+	sectorWidth  = (float)(xMax - xCenter) / 4.0;
+	sectorHeight = (float)(yMax - yCenter) / 4.0;
+	
+	Mouse.begin();
+	  // X motion
+	if (point.getX() > (float)xMax - sectorWidth)             // fast right
+		Mouse.move(3,0,0);
+	else if (point.getX() < (float)xMin + sectorWidth)        // fast left
+		Mouse.move(-3,0,0);
+	else if (point.getX() > (float)xMax - 2.0 * sectorWidth)  // medium right
+		Mouse.move(2,0,0);
+	else if (point.getX() < (float)xMin + 2.0 * sectorWidth)  // medium left
+		Mouse.move(-2,0,0);
+	else if (point.getX() > (float)xMax - 3.0 * sectorWidth)  // slow right
+		Mouse.move(1,0,0);
+	else if (point.getX() < (float)xMin + 3.0 * sectorWidth)  // slow left
+		Mouse.move(-1,0,0);
     
-    
-  // Y motion
-  if (point.getY() > (float)yMax - sectorHeight)            // fast right
-    Mouse.move(0,3,0);
-  else if (point.getY() < (float)yMin +       sectorHeight) // fast left
-    Mouse.move(0,-3,0);
-  else if (point.getY() > (float)yMax - 2.0 * sectorHeight) // medium right
-    Mouse.move(0,2,0);
-  else if (point.getY() < (float)yMin + 2.0 * sectorHeight) // medium left
-    Mouse.move(0,-2,0);
-  else if (point.getY() > (float)yMax - 3.0 * sectorHeight) // slow right
-    Mouse.move(0,1,0);
-  else if (point.getY() < (float)yMin + 3.0 * sectorHeight) // slow left
-    Mouse.move(0,-1,0);
-  Mouse.end();
+	// Y motion
+	if (point.getY() > (float)yMax - sectorHeight)            // fast right
+		Mouse.move(0,3,0);
+	else if (point.getY() < (float)yMin +       sectorHeight) // fast left
+		Mouse.move(0,-3,0);
+	else if (point.getY() > (float)yMax - 2.0 * sectorHeight) // medium right
+		Mouse.move(0,2,0);
+	else if (point.getY() < (float)yMin + 2.0 * sectorHeight) // medium left
+		Mouse.move(0,-2,0);
+	else if (point.getY() > (float)yMax - 3.0 * sectorHeight) // slow right
+		Mouse.move(0,1,0);
+	else if (point.getY() < (float)yMin + 3.0 * sectorHeight) // slow left
+		Mouse.move(0,-1,0);
+	Mouse.end();
 }
 
 #endif

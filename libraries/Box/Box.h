@@ -43,8 +43,7 @@ class Box{
 	// calibrates the central location of the point and the maximum and minimum values
 	// used to determine the magnitude of mouse movement
 	void calibrate(Driver dr,int targetR, int targetG, int targetB,
-						  int rTolerance, int gTolerance, int bTolerance);
-						  
+				   int rTolerance, int gTolerance, int bTolerance);
 	void moveMouse(Coordinates point);
 };
 

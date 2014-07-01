@@ -8,8 +8,8 @@
 #include "Coordinates.h"
 #include "Pixel.h"
 
+// constructors
 Frame::Frame(int heightt, int widtht){
-	Serial.println("In true Frame constructor");
 	Serial.flush();
 	height = heightt;
 	width = widtht;
@@ -23,8 +23,9 @@ Frame::Frame(int heightt, int widtht){
 	byteNum = 0;
 }
 Frame::Frame(){
-	Serial.println("In default Frame constructor");
 }
+
+// accessors
 Line *Frame::getSpine(){
 	return spine;
 }
@@ -35,38 +36,40 @@ int Frame::getWidth(){
 	return width;
 }
 
+// methods
 Coordinates Frame::locate(int targetR, int targetG, int targetB,
 						  int rTolerance, int gTolerance, int bTolerance){
-  Coordinates target;
-  int xSum = 0;
-  int ySum = 0;
-  int total = 0;
-  // check each row
-  for (int i = 0; i<height; i++){
-    // check each pixel
-    for (int j = 0; j<width; j++){
-          // if the R is within the tolerated values
-      if (
-        spine[i].getPixelR(j) > targetR-rTolerance &&
-        spine[i].getPixelR(j) < targetR+rTolerance &&
-        // and the G is within the tolerated values
-        spine[i].getPixelG(j) > targetG-gTolerance &&
-        spine[i].getPixelG(j) < targetG+gTolerance &&
-        // and the B is within the tolerated values
-        spine[i].getPixelB(j) > targetB-bTolerance &&
-        spine[i].getPixelB(j) < targetB+bTolerance){
-        // if yes to all, update the sums. Once completed with frame analysis,
-        // average the values to find the center of the target
-        xSum = xSum + j;
-        ySum = ySum = i;
-        total++;
-      }
-    }
-  }
-  
-  target.setY(ySum / total);
-  target.setX(xSum / total);
-  return target;
+	Coordinates target;
+	int xSum = 0;
+	int ySum = 0;
+	int total = 0;
+	// check each row
+	for (int i = 0; i<height; i++){
+		// check each pixel
+		for (int j = 0; j<width; j++){
+			  // if the R is within the tolerated values
+		    if (
+				spine[i].getPixelR(j) > targetR-rTolerance &&
+				spine[i].getPixelR(j) < targetR+rTolerance &&
+				// and the G is within the tolerated values
+				spine[i].getPixelG(j) > targetG-gTolerance &&
+				spine[i].getPixelG(j) < targetG+gTolerance &&
+				// and the B is within the tolerated values
+				spine[i].getPixelB(j) > targetB-bTolerance &&
+				spine[i].getPixelB(j) < targetB+bTolerance){
+				// if yes to all, update the sums. Once completed with frame analysis,
+				// average the values to find the center of the target
+				//Serial.println("Found matching pixel.");
+				xSum = xSum + j;
+				ySum = ySum = i;
+				total++;
+			}
+		}
+	}
+	
+    target.setY(ySum / total);
+    target.setX(xSum / total);
+    return target;
 }
 
 void Frame::readWord(unsigned int data){

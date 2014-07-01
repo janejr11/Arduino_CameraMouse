@@ -35,7 +35,6 @@ void setup(){
   while(!Serial);
   Serial.println("Calibrating systems, move the target around.");
   Serial.flush();
-  while(!Serial);
   range.calibrate(driver, targetR, targetG, targetB, rTolerance, gTolerance, bTolerance);
 
 }
