@@ -1,12 +1,10 @@
 #ifndef driverImp
 #define driverImp
 
-#include "Arduino.h"
 #include "Driver.h"
 
 
-Driver::Driver(int heightt, int widtht): height (heightt), width (widtht), imageComplete (false), pasth (1), pastv (0), pastp(1)
-{
+Driver::Driver(int heightt, int widtht): height (heightt), width (widtht), imageComplete (false), pasth (1), pastv (0), pastp(1) {
 
 	image = new Frame(heightt,widtht);
 	
@@ -48,28 +46,22 @@ Frame Driver::getFrame(){
 }
 
 void Driver::read(){
-	unsigned int data; // used to hold data from pins
+	uint8_t data; // used to hold data from pins
 	imageComplete = 0; // if end of the frame, this will be updated before function return
 	v = digitalRead(vSync);
-	//Serial.print("V: ");
-	//Serial.println(v);
 	if (v == LOW && pastv == HIGH){ // beginning of a new frame (falling edge of vertical sync)
 		Serial.println("In new frame");
 		while (v==LOW){ // continue reading lines until the frame is fully constructed
-			//Serial.println("Continuing to read frame");
-			//Serial.flush();
 			h = digitalRead(hSync);
 			if (h == HIGH && pasth == LOW){ // beginning of a new row
-				//Serial.println("Beginning new row");
-				//Serial.flush();
 				while( h== HIGH ){ // continue reading every pixel until you have constructed the full row
 					p = digitalRead(pClk);
 					if (p == HIGH && pastp == LOW){ // read a byte of data and add it to the row
-						//Serial.println("Reading word");
-						//Serial.flush();
+						
 						// read in the data from the pins using binary math
 						data = readPins(d0,d1,d2,d3,d4,d5,d6,d7);
 						(*image).readWord(data);
+						
 					}
 				pastp = p;
 				h = digitalRead(hSync);
@@ -79,6 +71,7 @@ void Driver::read(){
 			v = digitalRead(vSync);
 		}
 		imageComplete = 1;
+		getFrame().convert();
 	}
 	pastv = v;
 } // end of read
@@ -90,24 +83,24 @@ bool Driver::isImageComplete(){
 		return false;
 }
 
-unsigned int Driver::readPins(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7){
-    unsigned int data = 0;
+uint8_t Driver::readPins(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7){
+    uint8_t data = 0;
     if (digitalRead(d0) == HIGH)
-        data = data + 1;
+        bitWrite(data,0,1);
     if (digitalRead(d1) == HIGH)
-		data = data + 2;
+		bitWrite(data,1,1);
     if (digitalRead(d2) == HIGH)
-		data = data + 4;
+		bitWrite(data,2,1);
     if (digitalRead(d3) == HIGH)
-		data = data + 8;
+		bitWrite(data,3,1);
     if (digitalRead(d4) == HIGH)
-		data = data + 16;
+		bitWrite(data,4,1);
     if (digitalRead(d5) == HIGH)
-		data = data + 32;
+		bitWrite(data,5,1);
     if (digitalRead(d6) == HIGH)
-		data = data + 64;
+		bitWrite(data,6,1);
     if (digitalRead(d7) == HIGH)
-		data = data + 128;
+		bitWrite(data,7,1);
     return data;
 }
 

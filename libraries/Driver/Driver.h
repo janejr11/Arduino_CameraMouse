@@ -1,10 +1,12 @@
 #ifndef driverHeader
 #define driverHeader
 
+#include "Arduino.h"
 #include "Pixel.h"
 #include "Line.h"
 #include "Frame.h"
 #include "TimerOne.h"
+
 
 class Driver{
 	private:
@@ -98,7 +100,7 @@ class Driver{
     // Keystone method, reads data from the camera by reading the pin status
     void read();
     // simplifies the read() function by delegating binary math to separate function
-    unsigned int readPins(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7);
+    uint8_t readPins(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7);
 
 };
 

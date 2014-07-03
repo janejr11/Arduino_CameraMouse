@@ -1,7 +1,10 @@
 #ifndef frameHeader
 #define frameHeader
+
 #include "Line.h"
+#include "Pixel.h"
 #include "Coordinates.h"
+#include "Arduino.h"
 
 class Frame{
 
@@ -20,11 +23,11 @@ class Frame{
 	int byteNum;
 	
 	// data holders for constructing pixels
-	int yA; // Y of pixel A
-	int yB; // Y of pixel B
+	uint8_t yA; // Y of pixel A
+	uint8_t yB; // Y of pixel B
 	// cb and cr of both pixel A and B
-	int cb;
-	int cr;
+	uint8_t cb;
+	uint8_t cr;
 	
 	public:
 	// constructors
@@ -38,10 +41,15 @@ class Frame{
 	
 	// methods
 	// keystone method that parses and interprets data passed from the driver
-	void readWord(unsigned int data);
+	void readWord(uint8_t data);
 	
-	Coordinates locate(int targetR, int targetG, int targetB,
-						  int rTolerance, int gTolerance, int bTolerance);
+	Coordinates locate(uint8_t targetR, uint8_t targetG, uint8_t targetB,
+						  uint8_t rTolerance, uint8_t gTolerance, uint8_t bTolerance);
+						  
+	// tests if the frame is completely constructed, returns true if good frame, false if incomplete
+	bool testFrame();
+	
+	void convert();
 };
 #endif
 

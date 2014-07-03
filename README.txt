@@ -19,4 +19,8 @@ Update history:
 	in tracking. 
 
 6/27/14:
-	Debugged most of the driver.read() method. Errors present in the frame.readWord() 		method.
+	Debugged most of the driver.read() method. Errors present in the frame.readWord() method.
+
+7/3/14:
+	Need to test incoming frames for completion, error on initialization of pixel objects when
+	the driver is declared (look within pixel.cpp)

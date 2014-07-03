@@ -14,7 +14,7 @@
  *  - startBottom() added to start counter at 0 and handle all interrupt enabling.
  *  - start() amended to enable interrupts
  *  - restart() amended to point at startBottom()
- * Modiied 7:26 PM Sunday, October 09, 2011 by Lex Talionis
+ * Modified 7:26 PM Sunday, October 09, 2011 by Lex Talionis
  *  - renamed start() to resume() to reflect it's actual role
  *  - renamed startBottom() to start(). This breaks some old code that expects start to continue counting where it left off
  *

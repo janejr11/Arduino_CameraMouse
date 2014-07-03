@@ -7,16 +7,15 @@
 #include <Driver.h>
 
 
-
 // target RGB values (describing tape color)
-const int targetR = 255;
-const int targetG = 100;
-const int targetB = 142;
+uint8_t targetR = 255;
+uint8_t targetG = 100;
+uint8_t targetB = 142;
 
 // margin of error allowed in pixel color analysis (specific to each color)
-const int rTolerance = 5;
-const int gTolerance = 20;
-const int bTolerance = 20;
+uint8_t rTolerance = 5;
+uint8_t gTolerance = 20;
+uint8_t bTolerance = 20;
 
 // camera driver object
 Driver driver(480,640);

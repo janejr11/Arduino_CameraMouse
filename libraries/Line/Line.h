@@ -1,5 +1,7 @@
 #ifndef lineHeader
 #define lineHeader
+
+#include "Arduino.h"
 #include "Pixel.h"
 
 // Line class to serve as the rows of a frame
@@ -16,16 +18,16 @@ class Line{
 	
 	//accessors
 	Pixel *getLine();
-	int getPixelR(int i);
-	int getPixelG(int i);
-	int getPixelB(int i);
+	uint8_t getPixelR(int i);
+	uint8_t getPixelG(int i);
+	uint8_t getPixelB(int i);
 	int getWidth();
 	
 	//mutators
-	void setPixelY(int i, int y);
-	void setPixelCb(int i, int cb);
-	void setPixelCr(int i, int cr);
-	void setPixelData(int i, int r, int g, int b);
+	void setPixelY(int i, uint8_t y);
+	void setPixelCb(int i, uint8_t cb);
+	void setPixelCr(int i, uint8_t cr);
+	void setPixelData(int i, uint8_t r, uint8_t g, uint8_t b);
 	
 	// methods
 	// convert method that iterates along each pixel in the line and

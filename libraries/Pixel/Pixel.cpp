@@ -1,42 +1,38 @@
 #ifndef pixelImp
 #define pixelImp
 
-#include "Arduino.h"
 #include "Pixel.h"
 
 // constructors
-Pixel::Pixel(int yt,int cbt,int crt){
-	y = yt;
-	cb = cbt;
-	cr = crt;
+Pixel::Pixel(uint8_t yt,uint8_t cbt,uint8_t crt) : y(yt), cb(cbt), cr(crt){
 }
-Pixel::Pixel(){
+Pixel::Pixel() : r (300){
 }
 
 // mutators
-void Pixel::sety(int yt){
+void Pixel::sety(uint8_t yt){
 	y = yt;
 }
-void Pixel::setcb(int cbt){
+void Pixel::setcb(uint8_t cbt){
 	cb = cbt;
 }
-void Pixel::setcr(int crt){
+void Pixel::setcr(uint8_t crt){
 	cr = crt;
 }
-void Pixel::setData(int rt, int gt, int bt){
+void Pixel::setData(uint8_t rt, uint8_t gt, uint8_t bt){
 	r = rt;
 	g = gt;
 	b = bt;
 }
 
 // accessors
-int Pixel::getR(){
+uint8_t Pixel::getR(){
 	return r;
 }
-int Pixel::getG(){
+uint8_t Pixel::getG(){
 	return g;
 }
-int Pixel::getB(){
+uint8_t Pixel::getB(){
 	return b;
 }
 

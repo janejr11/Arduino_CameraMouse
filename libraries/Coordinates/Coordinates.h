@@ -1,6 +1,8 @@
 #ifndef coordinatesHeader
 #define coordinatesHeader
 
+#include "Arduino.h"
+
 class Coordinates{
 private:
 int x;

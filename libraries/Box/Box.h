@@ -11,12 +11,10 @@ class Box{
 	private:
 	int xCenter;
 	int yCenter;
-
 	int xMax;
 	int yMax;
 	int xMin;
 	int yMin;
-
 	public:
 	// constructors
 	Box();
@@ -42,9 +40,10 @@ class Box{
 	
 	// calibrates the central location of the point and the maximum and minimum values
 	// used to determine the magnitude of mouse movement
-	void calibrate(Driver dr,int targetR, int targetG, int targetB,
-				   int rTolerance, int gTolerance, int bTolerance);
+	void calibrate(Driver dr,uint8_t targetR, uint8_t targetG, uint8_t targetB,
+				   uint8_t rTolerance, uint8_t gTolerance, uint8_t bTolerance);
 	void moveMouse(Coordinates point);
+	
 };
 
 #endif

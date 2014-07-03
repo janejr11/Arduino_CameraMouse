@@ -4,13 +4,14 @@
 #include "Box.h"
 
 // constructors
-Box::Box(int xCentert, int yCentert, int xMaxt, int xMint, int yMaxt,int yMint){
-	xCenter = xCentert;
+Box::Box(int xCentert, int yCentert, int xMaxt, int xMint, int yMaxt,int yMint) : xCenter(xCentert), yCenter(yCentert), xMax(xMaxt), xMin(xMint), yMax(yMaxt), yMin(yMint) {
+	// all replaced by initializer list
+	/*xCenter = xCentert;
 	yCenter = yCentert;
 	xMax = xMaxt;
 	xMin = xMint;
 	yMax = yMaxt;
-	yMin = yMint;
+	yMin = yMint;*/
 }
 Box::Box(){
 }
@@ -55,8 +56,8 @@ int Box::getYMin(){
 	return yMin;
 }
 
-void Box::calibrate(Driver dr,int targetR, int targetG, int targetB,
-					int rTolerance, int gTolerance, int bTolerance){
+void Box::calibrate(Driver dr,uint8_t targetR, uint8_t targetG, uint8_t targetB,
+					uint8_t rTolerance, uint8_t gTolerance, uint8_t bTolerance){
 	Serial.println("In calibrate");
 	Serial.flush();
 	int currentXMax = 0;
@@ -74,13 +75,18 @@ void Box::calibrate(Driver dr,int targetR, int targetG, int targetB,
 			Serial.println(t);
 			Serial.flush();
 		}*/
-		dr.read();
+		//dr.read();
 		if (dr.isImageComplete()){
 			Serial.println("Frame complete. Extracting image.");
 			Serial.flush();
 			i++;
 			
-			// test if the rows of the frame are full
+			/*bool frameTest = dr.getFrame().testFrame();
+			if (frameTest)
+				Serial.println("Frame successfully constructed");
+			else
+				Serial.println("Frame incomplete");
+			*/
 			current = dr.getFrame().locate(targetR, targetG, targetB, rTolerance, gTolerance, bTolerance);
 			Serial.print("X: ");
 			Serial.print(current.getX());

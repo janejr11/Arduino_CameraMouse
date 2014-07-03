@@ -1,26 +1,22 @@
 #ifndef frameImp
 #define frameImp
 
-
-#include "Arduino.h"
 #include "Frame.h"
-#include "Line.h"
-#include "Coordinates.h"
-#include "Pixel.h"
 
 // constructors
-Frame::Frame(int heightt, int widtht){
-	Serial.flush();
-	height = heightt;
+Frame::Frame(int heightt, int widtht) : height(heightt), width(widtht), lineNum(0), pixNum(0), byteNum(0) {
+	// replaced in initializer list
+	/*height = heightt;
 	width = widtht;
+	lineNum = 0;
+	pixNum = 0;
+	byteNum = 0;*/
 	spine = new Line[heightt];
 	build = new Line[heightt];
 	for (int i=0; i<heightt; i++){
 		spine[i].setWidth(widtht);
 	}
-	lineNum = 0;
-	pixNum = 0;
-	byteNum = 0;
+	
 }
 Frame::Frame(){
 }
@@ -37,8 +33,8 @@ int Frame::getWidth(){
 }
 
 // methods
-Coordinates Frame::locate(int targetR, int targetG, int targetB,
-						  int rTolerance, int gTolerance, int bTolerance){
+Coordinates Frame::locate(uint8_t targetR, uint8_t targetG, uint8_t targetB,
+						  uint8_t rTolerance, uint8_t gTolerance, uint8_t bTolerance){
 	Coordinates target;
 	int xSum = 0;
 	int ySum = 0;
@@ -72,7 +68,7 @@ Coordinates Frame::locate(int targetR, int targetG, int targetB,
     return target;
 }
 
-void Frame::readWord(unsigned int data){
+void Frame::readWord(uint8_t data){
 	if (pixNum == width){ // if end of line
 		pixNum = 0;
 		lineNum++;
@@ -114,4 +110,22 @@ void Frame::readWord(unsigned int data){
 	}
 }
 
+bool Frame::testFrame(){
+	for (int i=0; i<height; i++){
+		// if the final pixel in any line is uninitialized, return false
+		if (spine[i].getPixelR(width) == 0)
+			return false;
+	}
+	// if the final pixels are all initialized, return true
+	return true;
+}
+
+void Frame::convert(){
+	for (int i=0; i<height; i++){
+		spine[i].convert();
+	}
+}
 #endif
+
+
+

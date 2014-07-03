@@ -1,7 +1,6 @@
 #ifndef coordinatesImp
 #define coordinatesImp
 
-#include "Arduino.h"
 #include "Coordinates.h"
 
 int Coordinates::getX(){
