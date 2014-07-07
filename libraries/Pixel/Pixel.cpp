@@ -3,36 +3,38 @@
 
 #include "Pixel.h"
 
+
 // constructors
-Pixel::Pixel(uint8_t yt,uint8_t cbt,uint8_t crt) : y(yt), cb(cbt), cr(crt){
+Pixel::Pixel(byte yt,byte cbt,byte crt) : y(yt), cb(cbt), cr(crt), edited(true){
 }
-Pixel::Pixel() : r (300){
+
+Pixel::Pixel() : edited (false){
 }
 
 // mutators
-void Pixel::sety(uint8_t yt){
+void Pixel::sety(byte yt){
 	y = yt;
 }
-void Pixel::setcb(uint8_t cbt){
+void Pixel::setcb(byte cbt){
 	cb = cbt;
 }
-void Pixel::setcr(uint8_t crt){
+void Pixel::setcr(byte crt){
 	cr = crt;
 }
-void Pixel::setData(uint8_t rt, uint8_t gt, uint8_t bt){
+void Pixel::setData(byte rt, byte gt, byte bt){
 	r = rt;
 	g = gt;
 	b = bt;
 }
 
 // accessors
-uint8_t Pixel::getR(){
+byte Pixel::getR(){
 	return r;
 }
-uint8_t Pixel::getG(){
+byte Pixel::getG(){
 	return g;
 }
-uint8_t Pixel::getB(){
+byte Pixel::getB(){
 	return b;
 }
 
@@ -43,4 +45,7 @@ void Pixel::convert(){
     b = y+1.772*(cb-128);
 }
 
+bool Pixel::isEdited(){
+	return edited;
+}
 #endif

@@ -33,8 +33,8 @@ int Frame::getWidth(){
 }
 
 // methods
-Coordinates Frame::locate(uint8_t targetR, uint8_t targetG, uint8_t targetB,
-						  uint8_t rTolerance, uint8_t gTolerance, uint8_t bTolerance){
+Coordinates Frame::locate(byte targetR, byte targetG, byte targetB,
+						  byte rTolerance, byte gTolerance, byte bTolerance){
 	Coordinates target;
 	int xSum = 0;
 	int ySum = 0;
@@ -68,7 +68,7 @@ Coordinates Frame::locate(uint8_t targetR, uint8_t targetG, uint8_t targetB,
     return target;
 }
 
-void Frame::readWord(uint8_t data){
+void Frame::readWord(byte data){
 	if (pixNum == width){ // if end of line
 		pixNum = 0;
 		lineNum++;
@@ -112,8 +112,10 @@ void Frame::readWord(uint8_t data){
 
 bool Frame::testFrame(){
 	for (int i=0; i<height; i++){
-		// if the final pixel in any line is uninitialized, return false
-		if (spine[i].getPixelR(width) == 0)
+		// if the final pixel in any line is unedited, return false
+		if (spine[i].isEdited())
+			continue;
+		else
 			return false;
 	}
 	// if the final pixels are all initialized, return true

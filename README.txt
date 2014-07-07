@@ -22,5 +22,20 @@ Update history:
 	Debugged most of the driver.read() method. Errors present in the frame.readWord() method.
 
 7/3/14:
-	Need to test incoming frames for completion, error on initialization of pixel objects when
-	the driver is declared (look within pixel.cpp)
+	Need to test incoming frames for completion, Arduino crash on initialization of pixel 
+	objects when the driver is declared (look within pixel.cpp)
+	
+7/7/14:
+	Edited testing method to check boolean "edited" private member variable of pixel. Untested
+	on Arduino, (may not provide solution). Redefined the byte class and replaced all 'uint8_t'
+	with 'byte' for clarity .No problems compiling, untested on device. edited testing method 
+	in frame. Added testing method to line (method cascade)
+	
+	
+	
+	
+	
+	
+	
+	
+	

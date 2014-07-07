@@ -56,8 +56,8 @@ int Box::getYMin(){
 	return yMin;
 }
 
-void Box::calibrate(Driver dr,uint8_t targetR, uint8_t targetG, uint8_t targetB,
-					uint8_t rTolerance, uint8_t gTolerance, uint8_t bTolerance){
+void Box::calibrate(Driver dr,byte targetR, byte targetG, byte targetB,
+					byte rTolerance, byte gTolerance, byte bTolerance){
 	Serial.println("In calibrate");
 	Serial.flush();
 	int currentXMax = 0;
@@ -133,31 +133,31 @@ void Box::moveMouse(Coordinates point){
 	
 	Mouse.begin();
 	  // X motion
-	if (point.getX() > (float)xMax - sectorWidth)             // fast right
+	if (point.getX() > (float)xMax - sectorWidth)             // fast right tracking
 		Mouse.move(3,0,0);
-	else if (point.getX() < (float)xMin + sectorWidth)        // fast left
+	else if (point.getX() < (float)xMin + sectorWidth)        // fast left tracking
 		Mouse.move(-3,0,0);
-	else if (point.getX() > (float)xMax - 2.0 * sectorWidth)  // medium right
+	else if (point.getX() > (float)xMax - 2.0 * sectorWidth)  // medium right tracking
 		Mouse.move(2,0,0);
-	else if (point.getX() < (float)xMin + 2.0 * sectorWidth)  // medium left
+	else if (point.getX() < (float)xMin + 2.0 * sectorWidth)  // medium left tracking
 		Mouse.move(-2,0,0);
-	else if (point.getX() > (float)xMax - 3.0 * sectorWidth)  // slow right
+	else if (point.getX() > (float)xMax - 3.0 * sectorWidth)  // slow right tracking
 		Mouse.move(1,0,0);
-	else if (point.getX() < (float)xMin + 3.0 * sectorWidth)  // slow left
+	else if (point.getX() < (float)xMin + 3.0 * sectorWidth)  // slow left tracking
 		Mouse.move(-1,0,0);
     
 	// Y motion
-	if (point.getY() > (float)yMax - sectorHeight)            // fast right
+	if (point.getY() > (float)yMax - sectorHeight)            // fast right tracking
 		Mouse.move(0,3,0);
-	else if (point.getY() < (float)yMin +       sectorHeight) // fast left
+	else if (point.getY() < (float)yMin +       sectorHeight) // fast left tracking
 		Mouse.move(0,-3,0);
-	else if (point.getY() > (float)yMax - 2.0 * sectorHeight) // medium right
+	else if (point.getY() > (float)yMax - 2.0 * sectorHeight) // medium right tracking
 		Mouse.move(0,2,0);
-	else if (point.getY() < (float)yMin + 2.0 * sectorHeight) // medium left
+	else if (point.getY() < (float)yMin + 2.0 * sectorHeight) // medium left tracking
 		Mouse.move(0,-2,0);
-	else if (point.getY() > (float)yMax - 3.0 * sectorHeight) // slow right
+	else if (point.getY() > (float)yMax - 3.0 * sectorHeight) // slow right tracking
 		Mouse.move(0,1,0);
-	else if (point.getY() < (float)yMin + 3.0 * sectorHeight) // slow left
+	else if (point.getY() < (float)yMin + 3.0 * sectorHeight) // slow left tracking
 		Mouse.move(0,-1,0);
 	Mouse.end();
 }

@@ -6,6 +6,10 @@
 #include "Coordinates.h"
 #include "Arduino.h"
 
+#ifndef byte
+#define byte uint8_t
+#endif
+
 class Frame{
 
 	private:
@@ -23,11 +27,11 @@ class Frame{
 	int byteNum;
 	
 	// data holders for constructing pixels
-	uint8_t yA; // Y of pixel A
-	uint8_t yB; // Y of pixel B
+	byte yA; // Y of pixel A
+	byte yB; // Y of pixel B
 	// cb and cr of both pixel A and B
-	uint8_t cb;
-	uint8_t cr;
+	byte cb;
+	byte cr;
 	
 	public:
 	// constructors
@@ -41,10 +45,10 @@ class Frame{
 	
 	// methods
 	// keystone method that parses and interprets data passed from the driver
-	void readWord(uint8_t data);
+	void readWord(byte data);
 	
-	Coordinates locate(uint8_t targetR, uint8_t targetG, uint8_t targetB,
-						  uint8_t rTolerance, uint8_t gTolerance, uint8_t bTolerance);
+	Coordinates locate(byte targetR, byte targetG, byte targetB,
+						  byte rTolerance, byte gTolerance, byte bTolerance);
 						  
 	// tests if the frame is completely constructed, returns true if good frame, false if incomplete
 	bool testFrame();

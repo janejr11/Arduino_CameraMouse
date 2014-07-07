@@ -46,7 +46,7 @@ Frame Driver::getFrame(){
 }
 
 void Driver::read(){
-	uint8_t data; // used to hold data from pins
+	byte data; // used to hold data from pins
 	imageComplete = 0; // if end of the frame, this will be updated before function return
 	v = digitalRead(vSync);
 	if (v == LOW && pastv == HIGH){ // beginning of a new frame (falling edge of vertical sync)
@@ -83,8 +83,8 @@ bool Driver::isImageComplete(){
 		return false;
 }
 
-uint8_t Driver::readPins(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7){
-    uint8_t data = 0;
+byte Driver::readPins(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7){
+    byte data = 0;
     if (digitalRead(d0) == HIGH)
         bitWrite(data,0,1);
     if (digitalRead(d1) == HIGH)

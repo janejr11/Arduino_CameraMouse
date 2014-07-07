@@ -17,16 +17,16 @@ void Line::setWidth(int widtht){
 	width = widtht;
 	pix = new Pixel[widtht];
 }
-void Line::setPixelY(int i, uint8_t y){
+void Line::setPixelY(int i, byte y){
 	pix[i].sety(y);
 }
-void Line::setPixelCb(int i, uint8_t cb){
+void Line::setPixelCb(int i, byte cb){
 	pix[i].setcb(cb);
 }
-void Line::setPixelCr(int i, uint8_t cr){
+void Line::setPixelCr(int i, byte cr){
 	pix[i].setcr(cr);
 }
-void Line::setPixelData(int i, uint8_t r, uint8_t g, uint8_t b){
+void Line::setPixelData(int i, byte r, byte g, byte b){
 	pix[i].setData(r,g,b);
 }
 
@@ -34,13 +34,13 @@ void Line::setPixelData(int i, uint8_t r, uint8_t g, uint8_t b){
 Pixel *Line::getLine(){
 	return pix;
 }
-uint8_t Line::getPixelR(int i){
+byte Line::getPixelR(int i){
 	return pix[i].getR();
 }
-uint8_t Line::getPixelG(int i){
+byte Line::getPixelG(int i){
 	return pix[i].getG();
 }
-uint8_t Line::getPixelB(int i){
+byte Line::getPixelB(int i){
 	return pix[i].getB();
 }
 int Line::getWidth(){
@@ -52,6 +52,13 @@ void Line::convert(){
 	for (int i=0; i<width; i++){
 		pix[i].convert();
 	}
+}
+
+bool Line::isEdited(){
+	if (pix[width].isEdited())
+		return true;
+	else
+		return false;
 }
 
 #endif

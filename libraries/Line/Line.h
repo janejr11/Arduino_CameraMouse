@@ -4,6 +4,10 @@
 #include "Arduino.h"
 #include "Pixel.h"
 
+#ifndef byte
+#define byte uint8_t
+#endif
+
 // Line class to serve as the rows of a frame
 class Line{
 	private:
@@ -18,16 +22,16 @@ class Line{
 	
 	//accessors
 	Pixel *getLine();
-	uint8_t getPixelR(int i);
-	uint8_t getPixelG(int i);
-	uint8_t getPixelB(int i);
+	byte getPixelR(int i);
+	byte getPixelG(int i);
+	byte getPixelB(int i);
 	int getWidth();
 	
 	//mutators
-	void setPixelY(int i, uint8_t y);
-	void setPixelCb(int i, uint8_t cb);
-	void setPixelCr(int i, uint8_t cr);
-	void setPixelData(int i, uint8_t r, uint8_t g, uint8_t b);
+	void setPixelY(int i, byte y);
+	void setPixelCb(int i, byte cb);
+	void setPixelCr(int i, byte cr);
+	void setPixelData(int i, byte r, byte g, byte b);
 	
 	// methods
 	// convert method that iterates along each pixel in the line and
@@ -35,5 +39,7 @@ class Line{
 	void convert();
 	// sets width and initializes pixel array
 	void setWidth(int widtht);
+	// tests whether the line is completely filled by testing last pixel
+	bool isEdited();
 };
 #endif

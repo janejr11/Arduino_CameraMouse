@@ -7,6 +7,9 @@
 #include "Frame.h"
 #include "TimerOne.h"
 
+#ifndef byte
+#define byte uint8_t
+#endif
 
 class Driver{
 	private:
@@ -100,7 +103,7 @@ class Driver{
     // Keystone method, reads data from the camera by reading the pin status
     void read();
     // simplifies the read() function by delegating binary math to separate function
-    uint8_t readPins(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7);
+    byte readPins(int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7);
 
 };
 

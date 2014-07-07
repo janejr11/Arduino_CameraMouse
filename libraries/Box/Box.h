@@ -6,6 +6,10 @@
 #include "Frame.h"
 #include "Arduino.h"
 
+#ifndef byte
+#define byte uint8_t
+#endif
+
 class Box{
 
 	private:
@@ -40,8 +44,8 @@ class Box{
 	
 	// calibrates the central location of the point and the maximum and minimum values
 	// used to determine the magnitude of mouse movement
-	void calibrate(Driver dr,uint8_t targetR, uint8_t targetG, uint8_t targetB,
-				   uint8_t rTolerance, uint8_t gTolerance, uint8_t bTolerance);
+	void calibrate(Driver dr,byte targetR, byte targetG, byte targetB,
+				   byte rTolerance, byte gTolerance, byte bTolerance);
 	void moveMouse(Coordinates point);
 	
 };
