@@ -5,11 +5,17 @@
 
 // constructors
 Line::Line(int widtht) : width(widtht) {
-	// replaced in initializer list
-	//width = widtht;
+	//Serial.println("In line constructor.");
+	//Serial.flush();
 	pix = new Pixel[widtht];
 }
 Line::Line(){
+	//Serial.println("In line default constructor.");
+	//Serial.flush();
+}
+// destructor
+Line::~Line(){
+
 }
 
 // mutators

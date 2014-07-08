@@ -19,7 +19,6 @@ class Frame{
 	Line *spine;
 	// dynamic array that holds a partially constructed array,
 	// it is moved to the 'spine' whenever the frame is completed
-	Line *build;
 	
 	// iterators for parsing the data received as words
 	int lineNum;
@@ -37,6 +36,8 @@ class Frame{
 	// constructors
 	Frame(int heightt, int widtht);
 	Frame();
+	// destructor
+	~Frame();
 	
 	//accessors
 	Line *getSpine(); // used to extract the image

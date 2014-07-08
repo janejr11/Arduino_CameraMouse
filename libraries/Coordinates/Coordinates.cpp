@@ -3,6 +3,11 @@
 
 #include "Coordinates.h"
 
+Coordinates::Coordinates(){
+	Serial.println("Coordinates constructed.");
+	Serial.flush();
+}
+
 int Coordinates::getX(){
 	return x;
 }

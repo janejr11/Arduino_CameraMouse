@@ -11,6 +11,9 @@ int y;
 
 
 public:
+// constructor
+Coordinates();
+
 // accessors
 int getX();
 int getY();

@@ -5,20 +5,31 @@
 
 // constructors
 Frame::Frame(int heightt, int widtht) : height(heightt), width(widtht), lineNum(0), pixNum(0), byteNum(0) {
-	// replaced in initializer list
-	/*height = heightt;
-	width = widtht;
-	lineNum = 0;
-	pixNum = 0;
-	byteNum = 0;*/
-	spine = new Line[heightt];
-	build = new Line[heightt];
-	for (int i=0; i<heightt; i++){
-		spine[i].setWidth(widtht);
+	Serial.println("In frame constructor.");
+	Serial.flush();
+	Serial.println("Dynamically allocating spine.");
+	Serial.flush();
+	// there is not enough memory on the leonardo to store the full image,
+	// instead we will read data from every other row
+	spine = new Line[heightt/3];
+	
+	Serial.println("Initializing spine elements.");
+	Serial.flush();
+	for (int i=0; i<heightt/3; i++){
+		// there is not enough memory on the leonardo to store the full image,
+		// instead we will read data from every other pixel
+		spine[i] = Line(widtht/3);
 	}
 	
 }
+
 Frame::Frame(){
+	Serial.println("In frame default constructor.");
+	Serial.flush();
+}
+
+Frame::~Frame(){
+	delete [] spine;
 }
 
 // accessors
@@ -72,39 +83,34 @@ void Frame::readWord(byte data){
 	if (pixNum == width){ // if end of line
 		pixNum = 0;
 		lineNum++;
-		// at the end of the frame, convert the YCbCr data to RGB colorspace and move 
-		// the image to the spine from the build
+		// at the end of the frame, convert the YCbCr data to RGB colorspace
 		if (lineNum == height){ // if end of frame
 			for (int i=0; i<height; i++){
-				build[i].convert(); // convert every row
-				// take every converted value and build the pixels of the spine
-				for (int j=0; j<width; j++){
-					spine[i].setPixelData(j,build[i].getPixelR(i), build[i].getPixelG(i), build[i].getPixelB(i));
-				}
+				spine[i].convert(); // convert every row
 			}
 		}
 	}
 	
 	
 	if (byteNum == 0){ // first byte of the word (Cb of pixel A&B)
-		build[lineNum].setPixelCb(pixNum, data);
-		build[lineNum].setPixelCb(pixNum+1, data);
+		spine[lineNum].setPixelCb(pixNum, data);
+		spine[lineNum].setPixelCb(pixNum+1, data);
 		byteNum++;
 	}
 	
 	else if (byteNum == 1){ // second byte of the word (Y of pixel A)
-		build[lineNum].setPixelY(pixNum, data);
+		spine[lineNum].setPixelY(pixNum, data);
 		byteNum++;
 	}
 	
 	else if (byteNum == 2){ // third byte of the word (Cr of pixel A&B)
-		build[lineNum].setPixelCr(pixNum, data);
-		build[lineNum].setPixelCr(pixNum+1, data);
+		spine[lineNum].setPixelCr(pixNum, data);
+		spine[lineNum].setPixelCr(pixNum+1, data);
 		byteNum++;
 	}
 	
 	else if (byteNum == 3){ // fourth and final byte of the word (Y of pixel B)
-		build[lineNum].setPixelY(pixNum+1, data);
+		spine[lineNum].setPixelY(pixNum+1, data);
 		byteNum = 0;
 		pixNum = pixNum + 2;
 	}
@@ -127,6 +133,7 @@ void Frame::convert(){
 		spine[i].convert();
 	}
 }
+
 #endif
 
 

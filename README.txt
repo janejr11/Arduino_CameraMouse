@@ -31,7 +31,13 @@ Update history:
 	with 'byte' for clarity .No problems compiling, untested on device. edited testing method 
 	in frame. Added testing method to line (method cascade)
 	
-	
+7/8/14:
+	Discovered crash comes from reaching the memory limit of the arduino. Began editing the
+	pixel class to eliminate the rgb variables (ycbcr can serve a double purpose with careful
+	programming) also eliminated the 'build' from the frame class to halve the memory used.
+	The captured frame will now be the middle third of the screen as we want to preserve 
+	resolution but minimize memory burden. I have not implemented this fix into the drivers
+	reading or the frames comprehending.
 	
 	
 	

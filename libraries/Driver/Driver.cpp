@@ -5,7 +5,8 @@
 
 
 Driver::Driver(int heightt, int widtht): height (heightt), width (widtht), imageComplete (false), pasth (1), pastv (0), pastp(1) {
-
+	Serial.println("In driver constructor.");
+	Serial.flush();
 	image = new Frame(heightt,widtht);
 	
     int prescale[] = {0,1,8,64,256,1024}; // the range of prescale values
@@ -41,17 +42,25 @@ Driver::Driver(int heightt, int widtht): height (heightt), width (widtht), image
 	
 }
 
+//destructor (i dont think it ever gets deleted but I think this is good exercise
+Driver::~Driver(){
+	delete image;
+}
+
 Frame Driver::getFrame(){
 	return *image;
 }
 
 void Driver::read(){
+	// if you are in every other line, don't read it to conserve memory
+	
 	byte data; // used to hold data from pins
 	imageComplete = 0; // if end of the frame, this will be updated before function return
 	v = digitalRead(vSync);
 	if (v == LOW && pastv == HIGH){ // beginning of a new frame (falling edge of vertical sync)
 		Serial.println("In new frame");
 		while (v==LOW){ // continue reading lines until the frame is fully constructed
+		
 			h = digitalRead(hSync);
 			if (h == HIGH && pasth == LOW){ // beginning of a new row
 				while( h== HIGH ){ // continue reading every pixel until you have constructed the full row

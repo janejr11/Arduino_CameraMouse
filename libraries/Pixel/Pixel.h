@@ -12,8 +12,8 @@ class Pixel{
 
 	private:
 	//RGB and YCbCr values
-	byte r,g,b,y,cb,cr;
-	bool edited;
+	byte y,cb,cr;
+	//bool edited;
 	
 	public:
 	// constructors

@@ -18,7 +18,7 @@ uint8_t gTolerance = 20;
 uint8_t bTolerance = 20;
 
 // camera driver object
-Driver driver(480,640);
+//Driver driver(480,640);
 
 // box for judging mouse movement
 Box range;
@@ -32,9 +32,14 @@ Coordinates target;
 void setup(){
   Serial.begin(9600);
   while(!Serial);
+  
+
+  Driver debug(480,640);
+  
+  
   Serial.println("Calibrating systems, move the target around.");
   Serial.flush();
-  range.calibrate(driver, targetR, targetG, targetB, rTolerance, gTolerance, bTolerance);
+  //range.calibrate(driver, targetR, targetG, targetB, rTolerance, gTolerance, bTolerance);
 
 }
 

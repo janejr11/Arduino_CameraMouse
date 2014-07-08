@@ -19,6 +19,8 @@ class Line{
 	// constructors
 	Line(int widtht);
 	Line();
+	// destructor
+	~Line();
 	
 	//accessors
 	Pixel *getLine();

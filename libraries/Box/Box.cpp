@@ -5,13 +5,8 @@
 
 // constructors
 Box::Box(int xCentert, int yCentert, int xMaxt, int xMint, int yMaxt,int yMint) : xCenter(xCentert), yCenter(yCentert), xMax(xMaxt), xMin(xMint), yMax(yMaxt), yMin(yMint) {
-	// all replaced by initializer list
-	/*xCenter = xCentert;
-	yCenter = yCentert;
-	xMax = xMaxt;
-	xMin = xMint;
-	yMax = yMaxt;
-	yMin = yMint;*/
+	Serial.println("Box constructed.");
+	Serial.flush();
 }
 Box::Box(){
 }

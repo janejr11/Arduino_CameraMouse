@@ -57,7 +57,7 @@ class Driver{
     static const char SET_PULSE_WIDTH_HEADER = 'w';
     static const char SET_DUTY_CYCLE_HEADER  = 'c';
     
-    // I dont understand this next line so I'm commenting it out for now
+    // I dont understand this next line
     #define pwmRegister OCR1A      // the logical pin, can be set to OCR1B
     static const int   outPin =  sysClk;     // the physical pin
     static const int   outPin2 =  sccbClk;     // the physical pin
@@ -79,7 +79,9 @@ class Driver{
     int pastv;
     int pastp;
     
-    
+	// used to only take every other line
+    int everyOther;
+	
     int imageComplete; // active at 1, inactive at 0
 
     
@@ -94,6 +96,8 @@ class Driver{
     // constructors
     Driver();
     Driver(int heightt, int widtht);
+	//destructor
+	~Driver();
     
     //accessors
     Frame getFrame();
